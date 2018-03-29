@@ -1,6 +1,5 @@
 package com.ds.graph;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -22,6 +21,8 @@ import java.util.Scanner;
  * Following graph implementation is based on adjacency list.
  */
 class Graph {
+    private static boolean undirected = true;
+    private static boolean weighted = true;
 
     /**
      * This maintains the vertex array
@@ -39,12 +40,15 @@ class Graph {
      * @param scanner
      */
     public Graph(Scanner scanner) {
-        boolean undirected = true;
 
         // Check if graph is directed or undirected
         String graphType = scanner.next();
         if (graphType != null && graphType.equals("directed")) {
             undirected = false;
+        }
+        String weightedGraph = scanner.next();
+        if (weightedGraph != null && weightedGraph.equals("nonweighted")) {
+            weighted = false;
         }
 
         // Get the number of vertices
@@ -54,6 +58,7 @@ class Graph {
         vertexes = new Vertex[numOfV];
         for (int i = 0; i < numOfV; i++) {
             vertexes[i] = new Vertex(scanner.next(), null);
+            vertexes[i].setIndex(i);
         }
 
         // Now read the connections
@@ -61,6 +66,10 @@ class Graph {
             // Read two first connection information between two vertex
             String firstV = scanner.next();
             String secondV = scanner.next();
+            int weight = 0;
+            if (weighted) {
+                weight = scanner.nextInt();
+            }
 
             // Find their actual index in the vertex array
             int v1 = findIndexOfVertice(firstV);
@@ -69,9 +78,9 @@ class Graph {
             // Set the adjList of each other with apposite of index to
             // provide information about the adjacency. each new node is added to head
             // as it does not matter in what sequence the adjacecny list is created.
-            vertexes[v1].adjList = new Neighbor(v2, vertexes[v1].adjList);
+            vertexes[v1].setAdjList(new Neighbor(v2, weight, vertexes[v1].getAdjList()));
             if (undirected) {
-                vertexes[v2].adjList = new Neighbor(v1, vertexes[v2].adjList);
+                vertexes[v2].setAdjList(new Neighbor(v1, weight, vertexes[v2].getAdjList()));
             }
         }
     }
@@ -80,57 +89,25 @@ class Graph {
     public int findIndexOfVertice(String vertex) {
 
         for (int i = 0; i < vertexes.length; i++) {
-            if (vertexes[i].name.equals(vertex)) return i;
+            if (vertexes[i].getName().equals(vertex)) return i;
         }
         return -1;
     }
 
     public void print() {
         for (int i = 0; i < vertexes.length; i++) {
-            System.out.print(vertexes[i].name);
-            Neighbor temp = vertexes[i].adjList;
+            Neighbor temp = vertexes[i].getAdjList();
+            System.out.println(vertexes[i].getName());
+
             while (temp != null) {
-                System.out.print("--> " + vertexes[temp.vertexNo].name);
-                temp = temp.next;
+                System.out.println("\t--" + (weighted ? temp.getWeight() : "") + "-->"
+                        + vertexes[temp.getVertexNo()].getName());
+                temp = temp.getNext();
             }
-            System.out.println();
+
         }
     }
 
-    /**
-     * Used as node to maintain adjacency list
-     */
-    class Neighbor {
-        public int vertexNo;
-        public Neighbor next;
-
-        public Neighbor(int vertexNo, Neighbor next) {
-            this.vertexNo = vertexNo;
-            this.next = next;
-        }
-    }
-
-    /**
-     * Represents vertex in graph
-     */
-    class Vertex {
-        public String name;
-        public Neighbor adjList;
-
-        public Vertex(String name, Neighbor adjList) {
-            this.name = name;
-            this.adjList = adjList;
-        }
-    }
 
 }
 
-public class SimpleGraph {
-    public static void main(String[] args) {
-        InputStream fileInputStream = SimpleGraph.class.getResourceAsStream("/webpages.txt");
-        Scanner sc = new Scanner(fileInputStream);
-
-        Graph g = new Graph(sc);
-        g.print();
-    }
-}

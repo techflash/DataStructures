@@ -1,4 +1,5 @@
 undirected
+nonweighted
 5
 sunil
 deepankar
