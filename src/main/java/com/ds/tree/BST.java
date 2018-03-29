@@ -10,19 +10,14 @@ import java.util.Queue;
  *
  */
 public class BST {
-	public class Node {
-		int data;
-		Node left;
-		Node right;
+	private boolean isBst(Node root, long minValue, long maxValue) {
+		if (root == null)
+			return true;
 
-		public Node(int data) {
-			this.data = data;
-			this.left = null;
-			this.right = null;
-		}
+		else return root.data > minValue && root.data < maxValue && isBst(root.left, minValue, root.data)
+				&& isBst(root.right, root.data, maxValue);
 
-
-	};
+	}
 
 	private Node root = null;
 
@@ -98,16 +93,16 @@ public class BST {
 		return isBst(this.root, -10000000, 100000000);
 	}
 
-	private boolean isBst(Node root, long minValue, long maxValue) {
-		if (root == null)
-			return true;
+	public class Node {
+		int data;
+		Node left;
+		Node right;
 
-		else if (root.data > minValue && root.data < maxValue && isBst(root.left, minValue, root.data)
-				&& isBst(root.right, root.data, maxValue))
-			return true;
-		else
-			return false;
-
+		public Node(int data) {
+			this.data = data;
+			this.left = null;
+			this.right = null;
+		}
 	}
 
 	private Node delete(Node root, int data) {

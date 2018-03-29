@@ -1,0 +1,15 @@
+undirected
+5
+sunil
+deepankar
+aditya
+gaurav
+sujit
+sunil deepankar
+sunil aditya
+sunil gaurav
+sunil sujit
+deepankar gaurav
+sujit aditya
+gaurav sujit
+gaurav aditya

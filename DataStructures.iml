@@ -11,6 +11,5 @@
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
-    <orderEntry type="library" exported="" name="Maven: ojdbc:ojdbc:14" level="project" />
   </component>
 </module>
