@@ -1,6 +1,5 @@
 directed
 weighted
-
 5
 kharadi
 koregaon

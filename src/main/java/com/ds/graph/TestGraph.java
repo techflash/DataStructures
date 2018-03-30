@@ -5,10 +5,20 @@ import java.util.Scanner;
 
 public class TestGraph {
     public static void main(String[] args) {
-        InputStream fileInputStream = TestGraph.class.getResourceAsStream("/friendship.txt");
+        String friendshipFilePath = "/friendship.txt";
+        String intercitynetwork = "/intracitynetwork.txt";
+        String webpages = "/webpages.txt";
+        InputStream fileInputStream = TestGraph.class.getResourceAsStream(webpages);
         Scanner sc = new Scanner(fileInputStream);
 
         Graph g = new Graph(sc);
+
+        System.out.println("Print graph based on its relations");
         g.print();
+
+        System.out.println("Traverse the graph in depth first manner!");
+        g.dfs();
+
+
     }
 }

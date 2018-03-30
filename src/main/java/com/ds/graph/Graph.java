@@ -27,7 +27,7 @@ class Graph {
     /**
      * This maintains the vertex array
      */
-    private Vertex vertexes[];
+    private Vertex vertexList[];
 
     /**
      * This constructor does heavy lifting. It has to read graph entries and construct the graph.
@@ -47,7 +47,7 @@ class Graph {
             undirected = false;
         }
         String weightedGraph = scanner.next();
-        if (weightedGraph != null && weightedGraph.equals("nonweighted")) {
+        if (weightedGraph != null && weightedGraph.equals("unweighted")) {
             weighted = false;
         }
 
@@ -55,10 +55,10 @@ class Graph {
         int numOfV = scanner.nextInt();
 
         // Create array of vertices
-        vertexes = new Vertex[numOfV];
+        vertexList = new Vertex[numOfV];
         for (int i = 0; i < numOfV; i++) {
-            vertexes[i] = new Vertex(scanner.next(), null);
-            vertexes[i].setIndex(i);
+            vertexList[i] = new Vertex(scanner.next(), null);
+            vertexList[i].setIndex(i);
         }
 
         // Now read the connections
@@ -72,36 +72,64 @@ class Graph {
             }
 
             // Find their actual index in the vertex array
-            int v1 = findIndexOfVertice(firstV);
-            int v2 = findIndexOfVertice(secondV);
+            int v1 = findIndexOfVertex(firstV);
+            int v2 = findIndexOfVertex(secondV);
 
             // Set the adjList of each other with apposite of index to
             // provide information about the adjacency. each new node is added to head
             // as it does not matter in what sequence the adjacecny list is created.
-            vertexes[v1].setAdjList(new Neighbor(v2, weight, vertexes[v1].getAdjList()));
+            vertexList[v1].setAdjList(new Neighbor(v2, weight, vertexList[v1].getAdjList()));
             if (undirected) {
-                vertexes[v2].setAdjList(new Neighbor(v1, weight, vertexes[v2].getAdjList()));
+                vertexList[v2].setAdjList(new Neighbor(v1, weight, vertexList[v2].getAdjList()));
             }
         }
     }
 
     // Find index of vertex in vertex array
-    public int findIndexOfVertice(String vertex) {
+    public int findIndexOfVertex(String vertex) {
 
-        for (int i = 0; i < vertexes.length; i++) {
-            if (vertexes[i].getName().equals(vertex)) return i;
+        for (int i = 0; i < vertexList.length; i++) {
+            if (vertexList[i].getName().equals(vertex)) return i;
         }
         return -1;
     }
 
+
+    private void dfs(Vertex v, boolean[] visited) {
+        visited[v.getIndex()] = true;
+        System.out.println("Now visiting: " + vertexList[v.getIndex()].getName());
+
+        Neighbor n = v.getAdjList();
+        while (n != null) {
+            if (!visited[n.getVertexNo()]) {
+                System.out.println(" leaving from " + vertexList[v.getIndex()].getName() + " to " + vertexList[n.getVertexNo()].getName());
+                dfs(vertexList[n.getVertexNo()], visited);
+            }
+            n = n.getNext();
+        }
+    }
+
+    /**
+     * Provides depth first traversal
+     */
+    public void dfs() {
+        boolean[] visited = new boolean[vertexList.length];
+        for (int i = 0; i < vertexList.length; i++) {
+            if (!visited[i]) {
+                dfs(vertexList[i], visited);
+            }
+        }
+    }
+
     public void print() {
-        for (int i = 0; i < vertexes.length; i++) {
-            Neighbor temp = vertexes[i].getAdjList();
-            System.out.println(vertexes[i].getName());
+        for (int i = 0; i < vertexList.length; i++) {
+            System.out.println(vertexList[i].getName());
+
+            Neighbor temp = vertexList[i].getAdjList();
 
             while (temp != null) {
                 System.out.println("\t--" + (weighted ? temp.getWeight() : "") + "-->"
-                        + vertexes[temp.getVertexNo()].getName());
+                        + vertexList[temp.getVertexNo()].getName());
                 temp = temp.getNext();
             }
 
