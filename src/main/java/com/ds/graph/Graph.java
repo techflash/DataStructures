@@ -1,5 +1,7 @@
 package com.ds.graph;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -117,6 +119,37 @@ class Graph {
         for (int i = 0; i < vertexList.length; i++) {
             if (!visited[i]) {
                 dfs(vertexList[i], visited);
+            }
+        }
+    }
+
+    private void bfs(Vertex v, boolean[] visited) {
+        visited[v.getIndex()] = true;
+        Queue<Vertex> queue = new ArrayDeque<>();
+        queue.offer(v);
+
+        while (!queue.isEmpty()) {
+            v = queue.poll();
+
+            for (Neighbor n = v.getAdjList(); n != null; n = n.getNext()) {
+
+                if (!visited[n.getVertexNo()]) {
+                    System.out.println(" visiting from " + v.getName() + " to " + vertexList[n.getVertexNo()].getName());
+                    visited[n.getVertexNo()] = true;
+                    queue.offer(vertexList[n.getVertexNo()]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Provides breadth first traversal
+     */
+    public void bfs() {
+        boolean[] visited = new boolean[vertexList.length];
+        for (int i = 0; i < vertexList.length; i++) {
+            if (!visited[i]) {
+                bfs(vertexList[i], visited);
             }
         }
     }
