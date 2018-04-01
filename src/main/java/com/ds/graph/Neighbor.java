@@ -3,7 +3,7 @@ package com.ds.graph;
 /**
  * Used as node to maintain adjacency list
  */
-class Neighbor {
+class Neighbor implements Cloneable {
     private int vertexNo;
     private Neighbor next;
     private int weight;
@@ -38,4 +38,25 @@ class Neighbor {
         this.weight = weight;
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return toString(this).toString();
+    }
+
+    public StringBuilder toString(Neighbor neighbor) {
+        StringBuilder sb = new StringBuilder();
+        while (neighbor != null) {
+            sb.append("{" +
+                    "vertexNo=" + neighbor.getVertexNo() +
+                    ", weight=" + neighbor.getWeight() +
+                    "}");
+            neighbor = neighbor.next;
+        }
+        return sb;
+    }
 }

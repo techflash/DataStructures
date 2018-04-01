@@ -8,19 +8,22 @@ public class TestGraph {
         String friendshipFilePath = "/friendship.txt";
         String intercitynetwork = "/intracitynetwork.txt";
         String webpages = "/webpages.txt";
-        InputStream fileInputStream = TestGraph.class.getResourceAsStream(webpages);
+        InputStream fileInputStream = TestGraph.class.getResourceAsStream(intercitynetwork);
         Scanner sc = new Scanner(fileInputStream);
 
         Graph g = new Graph(sc);
 
-        System.out.println("Print graph based on its relations");
-        g.print();
+        DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm();
+        dijkstraAlgorithm.findShortestPath(g, g.getVertexList()[0]);
+//
+//        System.out.println("Print graph based on its relations");
+//        g.print();
 
-        System.out.println("Traverse the graph in depth first manner!");
-        g.dfs();
-
-        System.out.println("Traverse the graph in breadth first manner!");
-        g.bfs();
+//        System.out.println("Traverse the graph in depth first manner!");
+//        g.dfs();
+//
+//        System.out.println("Traverse the graph in breadth first manner!");
+//        g.bfs();
 
     }
 }

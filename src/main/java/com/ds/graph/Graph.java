@@ -27,7 +27,7 @@ class Graph {
     private static boolean weighted = true;
 
     /**
-     * This maintains the vertex array
+     * This maintains the sourceVertex array
      */
     private Vertex vertexList[];
 
@@ -65,7 +65,7 @@ class Graph {
 
         // Now read the connections
         while (scanner.hasNext()) {
-            // Read two first connection information between two vertex
+            // Read two first connection information between two sourceVertex
             String firstV = scanner.next();
             String secondV = scanner.next();
             int weight = 0;
@@ -73,7 +73,7 @@ class Graph {
                 weight = scanner.nextInt();
             }
 
-            // Find their actual index in the vertex array
+            // Find their actual index in the sourceVertex array
             int v1 = findIndexOfVertex(firstV);
             int v2 = findIndexOfVertex(secondV);
 
@@ -87,13 +87,8 @@ class Graph {
         }
     }
 
-    // Find index of vertex in vertex array
-    public int findIndexOfVertex(String vertex) {
-
-        for (int i = 0; i < vertexList.length; i++) {
-            if (vertexList[i].getName().equals(vertex)) return i;
-        }
-        return -1;
+    public static boolean isUndirected() {
+        return undirected;
     }
 
 
@@ -169,6 +164,33 @@ class Graph {
         }
     }
 
+    public static void setUndirected(boolean undirected) {
+        Graph.undirected = undirected;
+    }
 
+    public static boolean isWeighted() {
+        return weighted;
+    }
+
+    public static void setWeighted(boolean weighted) {
+        Graph.weighted = weighted;
+    }
+
+    // Find index of sourceVertex in sourceVertex array
+    public int findIndexOfVertex(String vertex) {
+
+        for (int i = 0; i < vertexList.length; i++) {
+            if (vertexList[i].getName().equals(vertex)) return i;
+        }
+        return -1;
+    }
+
+    public Vertex[] getVertexList() {
+        return vertexList;
+    }
+
+    public void setVertexList(Vertex[] vertexList) {
+        this.vertexList = vertexList;
+    }
 }
 

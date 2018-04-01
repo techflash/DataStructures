@@ -1,9 +1,9 @@
 package com.ds.graph;
 
 /**
- * Represents vertex in graph
+ * Represents sourceVertex in graph
  */
-class Vertex {
+class Vertex implements Cloneable {
     private String name;
     private Neighbor adjList;
     private int index;
@@ -37,4 +37,26 @@ class Vertex {
         this.index = index;
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Vertex v = (Vertex) super.clone();
+        v.adjList = (Neighbor) this.adjList.clone();
+        Neighbor t = this.adjList.getNext();
+        Neighbor tv = v.adjList;
+        while (t != null) {
+            tv.setNext((Neighbor) t.clone());
+            t = t.getNext();
+            tv = tv.getNext();
+        }
+        return v;
+    }
+
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "name='" + name + '\'' +
+                ", adjList=" + adjList.toString() +
+                ", index=" + index +
+                '}';
+    }
 }
