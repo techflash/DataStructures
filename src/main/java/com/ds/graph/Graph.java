@@ -91,6 +91,48 @@ class Graph {
         return undirected;
     }
 
+    public static void setUndirected(boolean undirected) {
+        Graph.undirected = undirected;
+    }
+
+    public static boolean isWeighted() {
+        return weighted;
+    }
+
+    public static void setWeighted(boolean weighted) {
+        Graph.weighted = weighted;
+    }
+
+    private int topologicalSort(Vertex v, boolean[] visited, int topnum[], int n) {
+        visited[v.getIndex()] = true;
+        System.out.println("Now visiting: " + vertexList[v.getIndex()].getName());
+
+        Neighbor neighbor = v.getAdjList();
+        while (neighbor != null) {
+            if (!visited[neighbor.getVertexNo()]) {
+                n = topologicalSort(vertexList[neighbor.getVertexNo()], visited, topnum, n);
+            }
+            neighbor = neighbor.getNext();
+        }
+
+        topnum[n] = v.getIndex();
+        return --n;
+    }
+
+    /**
+     * Provides depth first traversal
+     */
+    public int[] topologicalSort() {
+        boolean[] visited = new boolean[vertexList.length];
+        int n = vertexList.length - 1;
+        int topnum[] = new int[vertexList.length];
+        for (int i = 0; i < vertexList.length; i++) {
+            if (!visited[i]) {
+                n = topologicalSort(vertexList[i], visited, topnum, n);
+            }
+        }
+        return topnum;
+    }
 
     private void dfs(Vertex v, boolean[] visited) {
         visited[v.getIndex()] = true;
@@ -162,18 +204,6 @@ class Graph {
             }
 
         }
-    }
-
-    public static void setUndirected(boolean undirected) {
-        Graph.undirected = undirected;
-    }
-
-    public static boolean isWeighted() {
-        return weighted;
-    }
-
-    public static void setWeighted(boolean weighted) {
-        Graph.weighted = weighted;
     }
 
     // Find index of sourceVertex in sourceVertex array

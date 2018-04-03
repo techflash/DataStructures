@@ -1,0 +1,17 @@
+directed
+unweighted
+7
+A
+B
+C
+D
+E
+F
+G
+A B
+A C
+B D
+C G
+D E
+E G
+E F
