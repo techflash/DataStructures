@@ -116,10 +116,10 @@ public class BST {
 			// found you... will delete you now
 			if (root.left == null && root.right == null) {
 				root = null;
-			} else if (root.left != null) {
+			} else if (root.right == null) {
 				root = root.left;
 			} else if (root.left == null) {
-				root = root.left;
+				root = root.right;
 			} else {
 				// Node temp = ;
 				root.data = findMin(root.right).data;

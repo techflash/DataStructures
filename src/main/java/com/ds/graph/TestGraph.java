@@ -23,18 +23,20 @@ public class TestGraph {
 
         System.out.println("Traverse the graph in depth first manner!");
         g.dfs();
+*/
 
         System.out.println("Traverse the graph in breadth first manner!");
         g.bfs();
-*/
 
         // Topological sort
+/*
         int topnum[] = g.topologicalSort();
         System.out.println("Topological sort: ");
         for (int i : topnum) {
 
             System.out.print("--" + g.getVertexList()[i].getName());
         }
+*/
 
 
     }

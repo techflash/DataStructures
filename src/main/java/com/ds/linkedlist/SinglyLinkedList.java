@@ -123,6 +123,28 @@ public class SinglyLinkedList {
         return first;
     }
 
+    /**
+     * Finds loop in linked list
+     *
+     * @return
+     */
+    public boolean isThereLoop() {
+        if (first == null || first.next == null) return false;
+
+        Node l1 = first;
+        Node l2 = l1.next;
+        while (null != l2.next) {
+            if (l1.equals(l2)) {
+                return true;
+            }
+            l1 = l1.next;
+            l2 = l2.next.next;
+        }
+
+        return false;
+    }
+
+
     public void setHead(Node node) {
         this.first = node;
     }
