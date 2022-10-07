@@ -1,0 +1,16 @@
+directed
+weighted
+5
+kharadi
+koregaon
+punestation
+vishrantwadi
+aundh
+kharadi punestation 10
+kharadi koregaon 5
+kharadi vishrantwadi 8
+punestation aundh 15
+koregaon punestation 3
+koregaon vishrantwadi 7
+vishrantwadi aundh 16
+aundh kharadi 28
