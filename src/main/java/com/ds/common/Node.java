@@ -9,10 +9,10 @@ public class Node {
 		
 	}
 
-	@Override
-	public String toString() {
-		return "Node [data=" + data + ", next=" + next + ", prev=" + prev + "]";
-	}
-	
-	
+//	@Override
+//	public String toString() {
+//		return "Node [data=" + data + ", next=" + next + ", prev=" + prev + "]";
+//	}
+//
+//
 }
